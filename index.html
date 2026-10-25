@@ -1,0 +1,129 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#180b14">
+
+    <title>إلى جنونتي 💗</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+    <div class="background-grid"></div>
+
+    <canvas id="particlesCanvas" aria-hidden="true"></canvas>
+
+    <main class="page-container">
+
+        <!-- شاشة البداية -->
+        <section class="screen welcome-screen" id="welcomeScreen">
+
+            <div class="top-label">
+                <span class="status-dot"></span>
+                رسالة خاصة
+            </div>
+
+            <div class="main-heart" aria-hidden="true">♡</div>
+
+            <p class="eyebrow">A LITTLE SURPRISE FOR YOU</p>
+
+            <h1 class="main-title">
+                إلى <span>جنونتي</span>
+            </h1>
+
+            <p class="welcome-description">
+                فيه كلام صغير من قلبي ليكي...
+                <br>
+                ومكانه الطبيعي إنه يوصل لقلبك 💗
+            </p>
+
+            <div class="name-card">
+                <span class="card-icon">💌</span>
+
+                <div class="card-text">
+                    <span class="card-caption">صُنعت بحب مخصوص لـ</span>
+                    <strong>JANA</strong>
+                </div>
+
+                <span class="card-heart">♥</span>
+            </div>
+
+            <button class="primary-button" id="openLetterButton">
+                <span>افتحي رسالتك</span>
+                <span class="button-arrow">←</span>
+            </button>
+
+            <p class="bottom-note">
+                <span>♡</span>
+                رسالة صغيرة لشخص مميز
+                <span>♡</span>
+            </p>
+
+        </section>
+
+        <!-- شاشة الرسالة -->
+        <section class="screen letter-screen" id="letterScreen" hidden>
+
+            <div class="letter-header">
+                <div class="letter-icon">💗</div>
+
+                <p class="eyebrow">A LETTER FROM THE HEART</p>
+
+                <h2>
+                    يا <span>جنونتي</span>
+                </h2>
+
+                <p class="letter-subtitle">
+                    كل كلمة هنا مكتوبة ليكي إنتِ.
+                </p>
+            </div>
+
+            <div class="letter-paper">
+                <div class="paper-decoration decoration-top">♡</div>
+
+                <div class="letter-greeting">
+                    إلى بنوتتي الحلوة...
+                </div>
+
+                <div
+                    class="letter-content"
+                    id="letterContent"
+                    aria-live="polite"
+                ></div>
+
+                <span class="typing-cursor" id="typingCursor"></span>
+
+                <div class="letter-signature" id="letterSignature" hidden>
+                    <span class="signature-heart">♥</span>
+                    <p>بحبك يا جنونتي</p>
+                    <span class="signature-caption">إنتِ ليكي مكان خاص في قلبي 💗</span>
+                </div>
+
+                <div class="paper-decoration decoration-bottom">♡</div>
+            </div>
+
+            <button class="secondary-button" id="replayButton" hidden>
+                اقري رسالتك من الأول ↺
+            </button>
+
+            <p class="bottom-note letter-footer">
+                صُنعت بكل الحب، من أجلكِ وحدكِ
+                <span>♡</span>
+            </p>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

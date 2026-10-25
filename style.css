@@ -1,0 +1,656 @@
+
+/* =====================================
+   JANA — Pink Love Letter
+===================================== */
+
+:root {
+    --bg: #120810;
+    --bg-soft: #1e0d19;
+    --pink: #ff78b7;
+    --pink-light: #ffc1df;
+    --pink-soft: #ff9bc9;
+    --rose: #ff4f9a;
+    --white: #fff5fa;
+    --muted: #c9a8bb;
+    --glass: rgba(255, 226, 241, 0.055);
+    --border: rgba(255, 160, 207, 0.2);
+    --shadow: 0 0 55px rgba(255, 79, 154, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background:
+        radial-gradient(
+            ellipse at 50% 0%,
+            #351326 0%,
+            transparent 55%
+        ),
+        var(--bg);
+    color: var(--white);
+    font-family: "Cairo", sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+button {
+    font: inherit;
+}
+
+button:focus-visible {
+    outline: 2px solid var(--pink-light);
+    outline-offset: 5px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* الخلفية */
+
+.background-grid {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.16;
+
+    background-image:
+        linear-gradient(
+            rgba(255, 155, 201, 0.09) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 155, 201, 0.09) 1px,
+            transparent 1px
+        );
+
+    background-size: 48px 48px;
+
+    mask-image: linear-gradient(
+        to bottom,
+        black,
+        transparent 90%
+    );
+}
+
+.background-glow {
+    position: fixed;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    filter: blur(110px);
+    opacity: 0.18;
+    pointer-events: none;
+    z-index: 0;
+    animation: glowFloat 9s ease-in-out infinite alternate;
+}
+
+.glow-one {
+    top: 8%;
+    right: -150px;
+    background: #ff4f9a;
+}
+
+.glow-two {
+    bottom: 5%;
+    left: -160px;
+    background: #b83280;
+    animation-delay: -4s;
+}
+
+#particlesCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* التخطيط العام */
+
+.page-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: 100vh;
+    padding: 45px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.screen {
+    width: 100%;
+    max-width: 540px;
+    margin: auto;
+    animation: screenEnter 0.8s ease both;
+}
+
+/* شاشة البداية */
+
+.welcome-screen {
+    text-align: center;
+}
+
+.top-label {
+    width: fit-content;
+    margin: 0 auto 30px;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    background: rgba(255, 190, 221, 0.045);
+
+    color: var(--pink-light);
+    font-size: 12px;
+    letter-spacing: 0.3px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    background: #ff75b5;
+    border-radius: 50%;
+    box-shadow: 0 0 12px var(--pink);
+    animation: dotPulse 1.8s ease infinite;
+}
+
+.main-heart {
+    width: 105px;
+    height: 105px;
+    margin: 0 auto 26px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid rgba(255, 145, 198, 0.28);
+    border-radius: 32px;
+
+    background: linear-gradient(
+        145deg,
+        rgba(255, 170, 211, 0.13),
+        rgba(255, 79, 154, 0.035)
+    );
+
+    color: var(--pink-light);
+    font-family: Georgia, serif;
+    font-size: 65px;
+
+    box-shadow:
+        0 0 60px rgba(255, 79, 154, 0.12),
+        inset 0 0 30px rgba(255, 170, 211, 0.035);
+
+    animation: heartFloat 4s ease-in-out infinite;
+}
+
+.eyebrow {
+    color: var(--pink);
+    font-size: 10px;
+    letter-spacing: 3px;
+    font-family: "Playfair Display", serif;
+}
+
+.main-title {
+    margin-top: 13px;
+    font-size: clamp(36px, 8vw, 53px);
+    font-weight: 700;
+    line-height: 1.6;
+}
+
+.main-title span,
+.letter-header h2 span {
+    color: var(--pink-light);
+    text-shadow: 0 0 35px rgba(255, 120, 183, 0.3);
+}
+
+.welcome-description {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 2.2;
+}
+
+/* بطاقة الاسم */
+
+.name-card {
+    margin: 35px auto 25px;
+    padding: 19px 20px;
+
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-align: right;
+
+    border: 1px solid var(--border);
+    border-radius: 20px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(255, 206, 231, 0.085),
+        rgba(255, 79, 154, 0.025)
+    );
+
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+}
+
+.card-icon {
+    width: 47px;
+    height: 47px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+
+    border-radius: 15px;
+    background: rgba(255, 120, 183, 0.12);
+    font-size: 23px;
+}
+
+.card-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.card-caption {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.card-text strong {
+    color: var(--pink-light);
+    font-family: "Playfair Display", serif;
+    font-size: 19px;
+    letter-spacing: 2px;
+}
+
+.card-heart {
+    color: var(--pink);
+    font-size: 19px;
+    animation: heartBeat 1.8s ease infinite;
+}
+
+/* الأزرار */
+
+.primary-button,
+.secondary-button {
+    width: 100%;
+    min-height: 58px;
+    padding: 14px 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+
+    border: 1px solid rgba(255, 210, 233, 0.3);
+    border-radius: 16px;
+
+    cursor: pointer;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.primary-button {
+    color: #3a1028;
+    background: linear-gradient(
+        110deg,
+        #ffb5d8,
+        #ff78b7 55%,
+        #ffa2cd
+    );
+
+    box-shadow: 0 8px 35px rgba(255, 79, 154, 0.2);
+    font-weight: 800;
+    font-size: 14px;
+}
+
+.primary-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(255, 79, 154, 0.3);
+}
+
+.primary-button:active,
+.secondary-button:active {
+    transform: scale(0.98);
+}
+
+.button-arrow {
+    font-size: 19px;
+    transition: transform 0.25s ease;
+}
+
+.primary-button:hover .button-arrow {
+    transform: translateX(-4px);
+}
+
+.bottom-note {
+    margin-top: 25px;
+    color: #98758a;
+    font-size: 11px;
+    text-align: center;
+}
+
+.bottom-note span {
+    margin: 0 5px;
+    color: var(--pink);
+}
+
+/* شاشة الرسالة */
+
+.letter-screen {
+    max-width: 620px;
+}
+
+.letter-header {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.letter-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 16px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--border);
+    border-radius: 22px;
+
+    background: var(--glass);
+    font-size: 29px;
+
+    box-shadow: var(--shadow);
+    animation: heartFloat 4s ease-in-out infinite;
+}
+
+.letter-header h2 {
+    margin-top: 8px;
+    font-size: 35px;
+    line-height: 1.8;
+}
+
+.letter-subtitle {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* ورقة الرسالة */
+
+.letter-paper {
+    position: relative;
+    overflow: hidden;
+    padding: 35px 27px 30px;
+
+    border: 1px solid rgba(255, 163, 208, 0.25);
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            150deg,
+            rgba(255, 225, 241, 0.075),
+            rgba(255, 79, 154, 0.025)
+        );
+
+    box-shadow:
+        0 20px 80px rgba(0, 0, 0, 0.18),
+        0 0 45px rgba(255, 79, 154, 0.07);
+
+    backdrop-filter: blur(18px);
+}
+
+.letter-paper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--pink),
+        #ffe0f0,
+        var(--pink),
+        transparent
+    );
+}
+
+.paper-decoration {
+    position: absolute;
+    color: rgba(255, 145, 198, 0.2);
+    font-family: Georgia, serif;
+    font-size: 45px;
+    pointer-events: none;
+}
+
+.decoration-top {
+    top: 9px;
+    left: 17px;
+}
+
+.decoration-bottom {
+    bottom: 5px;
+    right: 17px;
+}
+
+.letter-greeting {
+    margin-bottom: 20px;
+    color: var(--pink-light);
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.letter-content {
+    min-height: 100px;
+    color: #ffeaf4;
+    font-size: 14px;
+    line-height: 2.5;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 18px;
+    margin-right: 3px;
+    vertical-align: middle;
+
+    background: var(--pink-light);
+    box-shadow: 0 0 12px var(--pink);
+
+    animation: cursorBlink 0.8s steps(2, start) infinite;
+}
+
+.letter-signature {
+    margin-top: 30px;
+    padding-top: 23px;
+    border-top: 1px solid rgba(255, 155, 201, 0.16);
+    text-align: center;
+    animation: screenEnter 0.8s ease both;
+}
+
+.signature-heart {
+    display: block;
+    margin-bottom: 9px;
+    color: var(--pink);
+    font-size: 24px;
+    animation: heartBeat 1.8s ease infinite;
+}
+
+.letter-signature p {
+    color: var(--pink-light);
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.signature-caption {
+    display: block;
+    margin-top: 7px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.secondary-button {
+    margin-top: 20px;
+    color: var(--pink-light);
+    border-color: var(--border);
+    background: rgba(255, 120, 183, 0.07);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.secondary-button:hover {
+    background: rgba(255, 120, 183, 0.13);
+    box-shadow: var(--shadow);
+}
+
+.letter-footer {
+    margin-top: 22px;
+}
+
+/* الحركات */
+
+@keyframes screenEnter {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heartFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+@keyframes heartBeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform: scale(1.13);
+    }
+
+    30% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.08);
+    }
+}
+
+@keyframes dotPulse {
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 12px var(--pink);
+    }
+
+    50% {
+        opacity: 0.55;
+        box-shadow: 0 0 4px var(--pink);
+    }
+}
+
+@keyframes glowFloat {
+    from {
+        transform: translate(0, 0) scale(1);
+    }
+
+    to {
+        transform: translate(25px, -20px) scale(1.12);
+    }
+}
+
+@keyframes cursorBlink {
+    to {
+        visibility: hidden;
+    }
+}
+
+/* الشاشات الصغيرة */
+
+@media (max-width: 480px) {
+    .page-container {
+        padding: 30px 17px;
+    }
+
+    .main-heart {
+        width: 88px;
+        height: 88px;
+        border-radius: 27px;
+        font-size: 55px;
+    }
+
+    .main-title {
+        font-size: 38px;
+    }
+
+    .welcome-description {
+        font-size: 13px;
+    }
+
+    .name-card {
+        padding: 16px;
+    }
+
+    .letter-paper {
+        padding: 30px 20px 27px;
+        border-radius: 20px;
+    }
+
+    .letter-content {
+        font-size: 13px;
+        line-height: 2.35;
+    }
+
+    .letter-header h2 {
+        font-size: 30px;
+    }
+}
+
+/* تقليل الحركة لمن يفضل ذلك */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
